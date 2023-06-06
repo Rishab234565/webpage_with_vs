@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Student Details</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+ 	<style>body{background-image:url("/static/images/background.jpg");}</style>
+</head>
+<body>
+	<h1>Student Details</h1>
+	{{students}}
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Marks</th>
+				<th>Grade</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for student in students %}
+			<tr>
+				<td>{{ student.name }}</td>
+				<td>{{ student.email }}</td>
+				<td>{{ student.phone }}</td>
+				<td>{{ student.marks }}</td>
+				<td class="grade"></td>
+				<td>
+					<!-- <a href="{{ url_for('edit', id=student.id) }}">Edit</a> |
+					<a href="{{ url_for('delete', id=student.id) }}">Delete</a> -->
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="/add">Add Student</a>
+
+	<script>
+		var rows = document.getElementsByTagName("tr");
+		for (var i = 1; i < rows.length; i++) {
+			var marksCell = rows[i].getElementsByTagName("td")[3];
+			var gradeCell = rows[i].getElementsByClassName("grade")[0];
+			var marks = parseInt(marksCell.innerHTML);
+			var grade;
+			if (marks >= 90) {
+				grade = "A+";
+			} else if (marks >= 80) {
+				grade = "A";
+			} else if (marks >= 70) {
+				grade = "B+";
+			} else if (marks >= 60) {
+				grade = "B";
+			} else if (marks >= 50) {
+				grade = "C";
+			} else {
+				grade = "F";
+			}
+			gradeCell.innerHTML = grade;
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Student</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<style>body{background-image:url("/static/images/background.jpg");}</style>
+</head>
+<body>
+	<h1>Add Student</h1>
+	<form method="POST" action="/add">
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name" size="5" required>
+php
+Copy code
+	<br>
+	<label for="email">Email:</label>
+	<input type="email" id="email" name="email" size = "20" required>
+	<br>
+	<label for="phone">Phone:</label>
+	<input type="text" id="phone" name="phone" size = "5" required>
+
+	<label for="marks">Marks:</label>
+	<input type="text" id="marks" name="marks" size = "5" required>
+
+	<label for="grade">Grade:</label>
+	<input type="text" id="grade" name="grade" class="grade" readonly>
+
+	<button type="submit">Add</button>
+</form>
+
+<script>
+	const marksInput = document.getElementById('marks');
+	const gradeInput = document.getElementById('grade');
+
+	marksInput.addEventListener('input', () => {
+		const marks = parseFloat(marksInput.value);
+		let grade;
+
+		if (isNaN(marks)) {
+			grade = '';
+		} else if (marks >= 90) {
+			grade = 'A+';
+		} else if (marks >= 80) {
+			grade = 'A';
+		} else if (marks >= 70) {
+			grade = 'B+';
+		} else if (marks >= 60) {
+			grade = 'B';
+		} else if (marks >= 50) {
+			grade = 'C';
+		} else {
+			grade = 'F';
+		}
+
+		gradeInput.value = grade;
+	});
+</script>
+</body>
+</html> 
